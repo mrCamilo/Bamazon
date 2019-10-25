@@ -1,9 +1,9 @@
 // These are the node packages we need
 var mysql = require("mysql");
-var inquirer = require("inquirer");
+//var inquirer = require("inquirer");
 
 // create the connection to sql here
-var conn = mysql.createConnection({
+var connection = mysql.createConnection({
     host: "localhost",
 
     // Your port; if not 3306
@@ -14,7 +14,7 @@ var conn = mysql.createConnection({
 
     // Your password
     password: "lolwut123",
-    database: "greatBay_DB"
+    database: "bamazon_db"
 });
 
 // connect to the mysql server and sql database
@@ -26,25 +26,16 @@ connection.connect(function (err) {
 
 function start() {
     // First, display all of the items here
-    console.log("WELCOME TO THE BAMAZON RECORD STORE!!");
-
-    // Using inquirer, ask what item the user would like to buy
-    inquirer
-    .prompt({
-      name: "postOrBid",
-      type: "list",
-      message: "Would you like to [POST] an auction or [BID] on an auction?",
-      choices: ["POST", "BID", "EXIT"]
+    console.log("WELCOME TO THE BAMAZON STORE!!");
+    console.log("This is what we have for sale...");
+    connection.query("SELECT * FROM products", function(err, results) {
+      var theItems = [];
+      if (err) throw err; 
+      for (var i = 0; i < results.length; i++) {
+        theItems.push(results[i].product_name);
+        console.log(theItems[i]);
+      }
+      connection.end();
     })
-    .then(function(answer) {
-      // based on their answer, either call the bid or the post functions
-      if (answer.postOrBid === "POST") {
-        postAuction();
-      }
-      else if(answer.postOrBid === "BID") {
-        bidAuction();
-      } else{
-        connection.end();
-      }
-    });
-}
+  
+  }

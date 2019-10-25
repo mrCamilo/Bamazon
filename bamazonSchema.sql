@@ -26,3 +26,4 @@ VALUES ("Tims", "clothing", 100, 15),
        ("Berserk - Volume 23", "books", 14, 2),
        ("EXPLOSIVE CALISTHENICS", "books", 23, 7),
        ("Taxi Driver - bluray", "movies", 20, 6)
+
