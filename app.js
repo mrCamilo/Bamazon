@@ -17,7 +17,7 @@ function loginCallback(password) {
     database: "bamazon_db"
   });
 
-  
+
   // variables
   var howMany = 0;
   var product = "";
@@ -74,24 +74,28 @@ function loginCallback(password) {
 
 
   function buy() {
-    connection.query('Select * FROM products WHERE id = ' + product, function (err, connection) {
+    connection.query('Select * FROM products WHERE id = ' + product, function (err, results) {
       //error
       if (err) throw err;
 
       // Only update the mysql databse if the user picks a valid quantity
-      if (howMany > connection[0].stock_quantity) {
-        console.log("We don't have sufficent " + connection[0].product_name + " in stock.");
+      if (howMany > results[0].stock_quantity) {
+        // when customer orders too much
+        console.log("We don't have sufficent " + results[0].product_name + " in stock.");
+        start();  
       }
-      else {
-        var price = connection[0].price * howMany;
-        console.log("Amount for your order of " + connection[0].product_name + ": " + "$" + price);
-        //("UPDATE products SET stock_quantity = stock_quantity - " + howMany + "WHERE item_id = " + product);
-        connection.query("UPDATE products SET stock_quantity = stock_quantity - " + howMany + "WHERE id = " + product);
-        // UPDATE products SET stock_quantity = stock_quantity - 1  WHERE id =  124;
-        console.log(chalk.magenta("Thanks for your purchase!! Have a great day :)"))
+      
+      if ((howMany < results[0].stock_quantity)) {
+        // when the order quantity is valid
+        var price = results[0].price * howMany;
+        console.log("Amount for your order of '" + results[0].product_name + "': " + "$" + price);
+        console.log(chalk.magenta("Thanks for your purchase!! Have a great day :)"));
         console.log(chalk.magenta("Updating marketplace...\n\n"));
-      };
-      start();
-    });
-  };
+        connection.query("UPDATE products SET stock_quantity = stock_quantity - " + howMany + " WHERE id = " + product);
+        start();  
+      }
+      
+    }) 
+  }
 }
+

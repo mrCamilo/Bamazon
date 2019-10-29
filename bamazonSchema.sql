@@ -26,5 +26,3 @@ VALUES (124, "Tims", "clothing", 100, 15),
        (1997, "Berserk - Volume 23", "books", 14, 2),
        (630, "EXPLOSIVE CALISTHENICS", "books", 23, 7),
        (1350, "Taxi Driver - bluray", "movies", 20, 6);
-       
-UPDATE products SET stock_quantity = stock_quantity - 1  WHERE id =  124;
