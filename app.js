@@ -21,6 +21,7 @@ function loginCallback(password) {
   // variables
   var howMany = 0;
   var product = "";
+  var validIDs = ["Get me out of here! I'm done shopping!"]; // this variable is used to pick what item you want based on ID. the object includes this string as an option to exit the store
 
   // connect to the mysql server and sql database
   connection.connect(function (err) {
@@ -40,6 +41,7 @@ function loginCallback(password) {
       for (var i = 0; i < results.length; i++) {
         theItems.push(results[i].product_name + chalk.blue(" | ID: " + results[i].id + chalk.red(") | Quantity: " + results[i].stock_quantity) + " | Price: $" + results[i].price));
         console.log(chalk.red(theItems[i]));
+        validIDs.push(results[i].id); // this is used to make sure it's a valid number when the user inputs an ID
       }
 
       // After that, we need to ask the user what they want to buy with a prompt
@@ -48,14 +50,9 @@ function loginCallback(password) {
         .prompt([
           {
             name: "purchaseProduct",
-            type: "input",
+            type: "list",
             message: "What product would you like to purchase? Please input the product's ID below:\n",
-            validate: function (value) {
-              if (isNaN(value) === false) {
-                return true;
-              }
-              return false;
-            }
+            choices: validIDs
           },
           {
             name: "howMany",
@@ -82,6 +79,10 @@ function loginCallback(password) {
       if (howMany > results[0].stock_quantity) {
         // when customer orders too much
         console.log("We don't have sufficent " + results[0].product_name + " in stock.");
+        console.log(chalk.magenta("A MILLION APOLOGIES! WE CAN'T FULFILL THIS ORDER RIGHT NOW :("));
+        console.log(chalk.green("------------\n-----------------"));
+        console.log(chalk.green("------------\n-----------------"));
+
         start();  
       }
       
