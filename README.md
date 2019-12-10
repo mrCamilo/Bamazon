@@ -1,4 +1,4 @@
-## Bamazon
+## The Command Line Storefront
 This project uses node.js and a MySQL database to view a fictional storefront of
 items. If customer selects item, the quantity is updated through MySQL and 
 the tables are updated.
@@ -23,7 +23,8 @@ Essential JavaScript development tools that help you go to market faster and bui
 - Catch errors if invalid quanity is entered
 
 ## Code example
-![Screenshot](https://imgur.com/a/JEOWPfE.png)
+[![Screenshot](https://imgur.com/a/JEOWPfE.png)](https://imgur.com/a/JEOWPfE.png)
+
 
 ## How to use
 1. Pull repo
