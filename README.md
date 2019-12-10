@@ -23,7 +23,7 @@ Essential JavaScript development tools that help you go to market faster and bui
 - Catch errors if invalid quanity is entered
 
 ## Code example
-[![Screenshot](https://imgur.com/a/JEOWPfE.png)](https://imgur.com/a/JEOWPfE.png)
+[![Screenshot](https://i.imgur.com/oo4CN4U.png)](https://i.imgur.com/oo4CN4U.png)
 
 
 ## How to use
